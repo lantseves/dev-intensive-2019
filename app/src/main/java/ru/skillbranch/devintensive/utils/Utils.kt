@@ -29,9 +29,9 @@ object Utils {
         var result : String = ""
 
         for (str in parts) {
-            result += alfavit[str[0].toUpperCase().toString()]
+            //result += alfavit[str[0].toUpperCase().toString()]
 
-            for (i in 1 until str.length) {
+            for (i in 0 until str.length) {
                 result += alfavit[str[i].toString()]
             }
             result += divider
