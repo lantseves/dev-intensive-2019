@@ -40,7 +40,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
     val raznost = (date.time - this.time)
     return if (raznost >= 0) {
         when (raznost) {
-            0L * SECOND, 1L * SECOND -> "только что"
+            in 0L * SECOND..1L * SECOND -> "только что"
             in 1L * SECOND..45L * SECOND -> "несколько секунд назад"
             in 45L * SECOND..75L * SECOND -> "минуту назад"
             in 75L * SECOND..45L * MINUTE -> "${raznost / MINUTE} ${getNumForm("минуту;минуты;минут" , raznost / MINUTE)} назад"
@@ -53,7 +53,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
     } else {
         val absraznost = abs(raznost)
         when (absraznost) {
-            0L * SECOND, 1L * SECOND -> "только что"
+            in 0L * SECOND..1L * SECOND -> "только что"
             in 1L * SECOND..45L * SECOND -> "через несколько секунд"
             in 45L * SECOND..75L * SECOND -> "через минуту"
             in 75L * SECOND..45L * MINUTE -> "через ${absraznost / MINUTE} ${getNumForm("минуту;минуты;минут" , absraznost / MINUTE)}"
