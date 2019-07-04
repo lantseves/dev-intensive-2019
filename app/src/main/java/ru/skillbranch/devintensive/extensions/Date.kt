@@ -1,6 +1,5 @@
 package ru.skillbranch.devintensive.extensions
 
-import java.lang.IllegalStateException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
@@ -29,12 +28,7 @@ fun Date.add(value:Int, units: TimeUnits = TimeUnits.SECOND):Date {
     return this
 }
 
-enum class TimeUnits {
-    SECOND,
-    MINUTE,
-    HOUR,
-    DAY
-}
+
 
 fun Date.humanizeDiff(date: Date = Date()): String {
     val raznost = (date.time - this.time)
@@ -67,7 +61,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
 
 }
 
-private fun getNumForm(pluralforms:String , value: Long):String {
+private fun getNumForm(pluralforms:String, value: Long):String {
     val forms = pluralforms.split(";")
     when (value % 10) {
         1L -> if (value % 100L != 11L)
@@ -77,4 +71,30 @@ private fun getNumForm(pluralforms:String , value: Long):String {
         else forms[2]
     }
     return forms[2]
+}
+
+enum class TimeUnits {
+    SECOND {
+        override fun plural(value: Int): String {
+            return "$value " + getNumForm("секунду;секунды;секунд" , value = value.toLong())
+        }
+    },
+    MINUTE {
+        override fun plural(value: Int): String {
+            return "$value " + getNumForm("минута;минуты;минут" , value = value.toLong())
+        }
+    },
+    HOUR {
+        override fun plural(value: Int): String {
+            return "$value " + getNumForm("час;часа;часов" , value = value.toLong())
+        }
+    },
+    DAY {
+        override fun plural(value: Int): String {
+            return "$value " + getNumForm("день;дня;дней" , value = value.toLong())
+        }
+    };
+
+    abstract fun plural(value: Int): String
+
 }
