@@ -81,7 +81,7 @@ enum class TimeUnits {
     },
     MINUTE {
         override fun plural(value: Int): String {
-            return "$value " + getNumForm("минута;минуты;минут" , value = value.toLong())
+            return "$value " + getNumForm("минуту;минуты;минут" , value = value.toLong())
         }
     },
     HOUR {
