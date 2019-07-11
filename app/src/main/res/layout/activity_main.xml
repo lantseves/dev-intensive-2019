@@ -25,8 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:src="@drawable/bender"/>
+            android:src="@drawable/bender_dance"/>
 
+    <Button
+            android:text="Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"/>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +50,9 @@
                     android:paddingTop="@dimen/spacing_normal_16"
                     android:paddingBottom="@dimen/spacing_normal_16"
                     android:layout_marginStart="@dimen/spacing_normal_16"
-                    android:layout_marginEnd="@dimen/spacing_normal_16"/>
+                    android:layout_marginEnd="@dimen/spacing_normal_16"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"/>
 
             <ImageView
                     android:id="@+id/iv_send"
