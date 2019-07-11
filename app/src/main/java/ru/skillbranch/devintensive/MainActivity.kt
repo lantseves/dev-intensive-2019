@@ -37,8 +37,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener , TextView.OnEdi
         messageEt = et_message
         messageEt.setOnEditorActionListener(this)
         sendBtn = iv_send
-        val btn = button
-        btn.setOnClickListener(this)
         
         val status = savedInstanceState?.getString("STATUS") ?: Bender.Status.NORMAL.name
         val question = savedInstanceState?.getString("QUESTION") ?: Bender.Question.NAME.name
@@ -97,9 +95,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener , TextView.OnEdi
     override fun onClick(v: View?) {
         if (v?.id == R.id.iv_send) {
             setText()
-        }
-        else if (v?.id == R.id.button) {
-            textTv.text = this.isKeyboardOpen().toString()
         }
     }
 

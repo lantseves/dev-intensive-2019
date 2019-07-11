@@ -13,7 +13,7 @@ fun Activity.hideKeyboard() {
     //inputMethodManager.hideSoftInputFromWindow (activity.getCurrentFocus (). getWindowToken (), 0); } -
 
     val inputMethodManager:InputMethodManager? = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
-    inputMethodManager?.hideSoftInputFromWindow(currentFocus.windowToken , InputMethodManager.HIDE_NOT_ALWAYS)
+    inputMethodManager?.hideSoftInputFromWindow(currentFocus?.windowToken , InputMethodManager.HIDE_NOT_ALWAYS)
 }
 
 fun Activity.isKeyboardOpen(): Boolean {
