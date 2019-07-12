@@ -44,13 +44,13 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         }
     }
 
-    private fun validationAnswer(answers: String): Boolean {
+    private fun validationAnswer(answers: String , question: Question): Boolean {
         return when(question) {
             Question.NAME -> answers.trim()[0].isUpperCase() //"Имя должно начинаться с заглавной буквы"
             Question.PROFESSION -> answers.trim()[0].isLowerCase() //"Профессия должна начинаться со строчной буквы"
-            Question.MATERIAL -> !answers.trim().matches(Regex("[0-9]"))//Материал не должен содержать цифр"
-            Question.BDAY -> answers.trim().matches(Regex("[0-9]")) //"Год моего рождения должен содержать только цифры"
-            Question.SERIAL -> answers.trim().matches(Regex("^[0-9]{7}$")) //"Серийный номер содержит только цифры, и их 7"
+            Question.MATERIAL -> !Regex("[0-9]+").containsMatchIn(answers.trim()) //Материал не должен содержать цифр"
+            Question.BDAY -> !Regex("\\D").containsMatchIn(answers.trim()) //"Год моего рождения должен содержать только цифры"
+            Question.SERIAL -> answers.trim().matches(Regex("^\\d{7}$")) //"Серийный номер содержит только цифры, и их 7"
             Question.IDLE -> true
         }
     }
