@@ -44,7 +44,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
         }
     }
 
-    private fun validationAnswer(answers: String , question: Question): Boolean {
+    private fun validationAnswer(answers: String): Boolean {
         return when(question) {
             Question.NAME -> answers.trim()[0].isUpperCase() //"Имя должно начинаться с заглавной буквы"
             Question.PROFESSION -> answers.trim()[0].isLowerCase() //"Профессия должна начинаться со строчной буквы"
