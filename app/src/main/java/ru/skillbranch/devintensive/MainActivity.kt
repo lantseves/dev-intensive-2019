@@ -19,7 +19,7 @@ import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.extensions.isKeyboardOpen
 import ru.skillbranch.devintensive.models.Bender
 
-class MainActivity : AppCompatActivity() , View.OnClickListener , TextView.OnEditorActionListener {
+class MainActivity : AppCompatActivity() , View.OnClickListener  {
 
 
     lateinit var benderImage: ImageView
@@ -35,7 +35,13 @@ class MainActivity : AppCompatActivity() , View.OnClickListener , TextView.OnEdi
         benderImage = iv_bender
         textTv = tv_text
         messageEt = et_message
-        messageEt.setOnEditorActionListener(this)
+        messageEt.setOnEditorActionListener { v, actionId: Int, event -> if (actionId == EditorInfo.IME_ACTION_DONE) {
+                setText()
+            true
+            } else {
+                false
+            }
+        }
         sendBtn = iv_send
         
         val status = savedInstanceState?.getString("STATUS") ?: Bender.Status.NORMAL.name
@@ -95,15 +101,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener , TextView.OnEdi
     override fun onClick(v: View?) {
         if (v?.id == R.id.iv_send) {
             setText()
-        }
-    }
-
-    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-        return if (actionId == EditorInfo.IME_ACTION_DONE) {
-            setText()
-            true
-        } else {
-            false
         }
     }
 
