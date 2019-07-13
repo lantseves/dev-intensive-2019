@@ -6,8 +6,8 @@ object Utils {
 
         return if (parts != null) {
 
-            val fistName = if (parts?.getOrNull(0) != "") parts?.getOrNull(0) else null
-            val lastName = if (parts?.getOrNull(1) != "") parts?.getOrNull(1) else null
+            val fistName = if (parts.getOrNull(0) != "") parts.getOrNull(0) else null
+            val lastName = if (parts.getOrNull(1) != "") parts.getOrNull(1) else null
 
             fistName to lastName
 

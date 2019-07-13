@@ -20,12 +20,17 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
 
          if (!validationAnswer(answers)) {
             when(question) {
-                Question.NAME -> return "Имя должно начинаться с заглавной буквы" to status.color
-                Question.PROFESSION-> return "Профессия должна начинаться со строчной буквы" to status.color
-                Question.MATERIAL -> return "Материал не должен содержать цифр" to status.color
-                Question.BDAY -> return "Год моего рождения должен содержать только цифры" to status.color
-                Question.SERIAL -> return "Серийный номер содержит только цифры, и их 7" to status.color
-                Question.IDLE -> return "игнорировать валидацию" to status.color //игнорировать валидацию
+                Question.NAME -> return "Имя должно начинаться с заглавной буквы\n${question.question}" to status.color
+                Question.PROFESSION-> return "Профессия должна начинаться со строчной буквы\n" +
+                        "${question.question}" to status.color
+                Question.MATERIAL -> return "Материал не должен содержать цифр\n" +
+                        "${question.question}" to status.color
+                Question.BDAY -> return "Год моего рождения должен содержать только цифры\n" +
+                        "${question.question}" to status.color
+                Question.SERIAL -> return "Серийный номер содержит только цифры, и их 7\n" +
+                        "${question.question}" to status.color
+                Question.IDLE -> return "игнорировать валидацию\n" +
+                        "${question.question}" to status.color //игнорировать валидацию
             }
         }
 
@@ -46,10 +51,29 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
 
     private fun validationAnswer(answers: String): Boolean {
         return when(question) {
-            Question.NAME -> answers.trim()[0].isUpperCase() //"Имя должно начинаться с заглавной буквы"
-            Question.PROFESSION -> answers.trim()[0].isLowerCase() //"Профессия должна начинаться со строчной буквы"
-            Question.MATERIAL -> !Regex("[0-9]+").containsMatchIn(answers.trim()) //Материал не должен содержать цифр"
-            Question.BDAY -> !Regex("\\D").containsMatchIn(answers.trim()) //"Год моего рождения должен содержать только цифры"
+            Question.NAME -> {
+                    if (answers.isNotBlank()) {
+                        answers.trim()[0].isUpperCase()
+                    } else {
+                    false
+                    }
+                } //"Имя должно начинаться с заглавной буквы"
+            Question.PROFESSION -> {
+                    if(answers.isNotBlank()) {
+                        answers.trim()[0].isLowerCase()
+                    } else {
+                    false
+                    }
+                } //"Профессия должна начинаться со строчной буквы"
+            Question.MATERIAL -> {
+                    if (answers.isNotBlank()) {
+                        !Regex("[0-9]+").containsMatchIn(answers.trim())
+                    } else {
+                        false
+                    }
+                } //Материал не должен содержать цифр"
+            Question.BDAY -> !Regex("\\D").containsMatchIn(answers.trim())
+                 //"Год моего рождения должен содержать только цифры"
             Question.SERIAL -> answers.trim().matches(Regex("^\\d{7}$")) //"Серийный номер содержит только цифры, и их 7"
             Question.IDLE -> true
         }
