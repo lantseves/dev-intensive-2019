@@ -26,11 +26,9 @@ object Utils {
 
     fun transliteration(payload: String , divider: String = " "): String {
         val parts : List<String> = payload.trim().split(" ")
-        var result : String = ""
+        var result = ""
 
         for (str in parts) {
-            //result += alfavit[str[0].toUpperCase().toString()]
-
             for (i in 0 until str.length) {
                 result += alfavit[str[i].toString()]
             }
