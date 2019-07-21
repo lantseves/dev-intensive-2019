@@ -1,10 +1,5 @@
 package ru.skillbranch.devintensive.models
 
-import android.graphics.Color
-import android.widget.TableRow
-import java.io.Serializable
-import java.security.KeyStore
-
 class Bender(var status: Status = Status.NORMAL, var question: Question = Question.NAME) {
 
     fun askQuestion(): String = when (question) {
@@ -18,19 +13,19 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
 
     fun listenAnswer(answers: String): Pair<String, Triple<Int, Int, Int>> {
 
-         if (!validationAnswer(answers)) {
+         if (!question.validationAnswer(answers)) {
             when(question) {
                 Question.NAME -> return "Имя должно начинаться с заглавной буквы\n${question.question}" to status.color
                 Question.PROFESSION-> return "Профессия должна начинаться со строчной буквы\n" +
-                        "${question.question}" to status.color
+                        question.question to status.color
                 Question.MATERIAL -> return "Материал не должен содержать цифр\n" +
-                        "${question.question}" to status.color
+                        question.question to status.color
                 Question.BDAY -> return "Год моего рождения должен содержать только цифры\n" +
-                        "${question.question}" to status.color
+                        question.question to status.color
                 Question.SERIAL -> return "Серийный номер содержит только цифры, и их 7\n" +
-                        "${question.question}" to status.color
+                        question.question to status.color
                 Question.IDLE -> return "игнорировать валидацию\n" +
-                        "${question.question}" to status.color //игнорировать валидацию
+                        question.question to status.color //игнорировать валидацию
             }
         }
 
@@ -46,36 +41,6 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                 question = Question.NAME
                 "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
             }
-        }
-    }
-
-    private fun validationAnswer(answers: String): Boolean {
-        return when(question) {
-            Question.NAME -> {
-                    if (answers.isNotBlank()) {
-                        answers.trim()[0].isUpperCase()
-                    } else {
-                    false
-                    }
-                } //"Имя должно начинаться с заглавной буквы"
-            Question.PROFESSION -> {
-                    if(answers.isNotBlank()) {
-                        answers.trim()[0].isLowerCase()
-                    } else {
-                    false
-                    }
-                } //"Профессия должна начинаться со строчной буквы"
-            Question.MATERIAL -> {
-                    if (answers.isNotBlank()) {
-                        !Regex("[0-9]+").containsMatchIn(answers.trim())
-                    } else {
-                        false
-                    }
-                } //Материал не должен содержать цифр"
-            Question.BDAY -> !Regex("\\D").containsMatchIn(answers.trim())
-                 //"Год моего рождения должен содержать только цифры"
-            Question.SERIAL -> answers.trim().matches(Regex("^\\d{7}$")) //"Серийный номер содержит только цифры, и их 7"
-            Question.IDLE -> true
         }
     }
 
@@ -97,30 +62,73 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
 
     enum class Question(val question: String, val answers: List<String>) {
         NAME("Как меня зовут?" , listOf("Бендер", "bender")) {
+
+            override fun validationAnswer(answers: String): Boolean { //"Имя должно начинаться с заглавной буквы"
+                return if (answers.isNotBlank()) {
+                    answers.trim()[0].isUpperCase()
+                } else {
+                    false
+                }
+            }
+
             override fun nextQuestion(): Question = PROFESSION
         },
 
         PROFESSION("Назови мою профессию?" , listOf("сгибальщик", "bender")) {
+
+            override fun validationAnswer(answers: String): Boolean { //"Профессия должна начинаться со строчной буквы"
+                return if(answers.isNotBlank()) {
+                    answers.trim()[0].isLowerCase()
+                } else {
+                    false
+                }
+            }
+
             override fun nextQuestion(): Question = MATERIAL
         },
 
         MATERIAL("Из чего я сделан?" , listOf("металл", "дерево", "metal", "iron", "wood")) {
+
+            override fun validationAnswer(answers: String): Boolean { //Материал не должен содержать цифр"
+                return if (answers.isNotBlank()) {
+                    !Regex("[0-9]+").containsMatchIn(answers.trim())
+                } else {
+                    false
+                }
+            }
+
             override fun nextQuestion(): Question = BDAY
         },
 
         BDAY("Когда меня создали?" , listOf("2993")) {
+
+            override fun validationAnswer(answers: String): Boolean {
+                return !Regex("\\D").containsMatchIn(answers.trim()) //"Год моего рождения должен содержать только цифры"
+            }
+
             override fun nextQuestion(): Question = SERIAL
         },
 
         SERIAL("Мой серийный номер?" , listOf("2716057")) {
+
+            override fun validationAnswer(answers: String): Boolean {
+                return answers.trim().matches(Regex("^\\d{7}$")) //"Серийный номер содержит только цифры, и их 7"
+            }
+
             override fun nextQuestion(): Question = IDLE
         },
 
         IDLE("На этом все, вопросов больше нет" , listOf()) {
+            override fun validationAnswer(answers: String): Boolean {
+                return true
+            }
+
             override fun nextQuestion(): Question = IDLE
         };
 
         abstract fun nextQuestion(): Question
+
+        abstract fun validationAnswer(answers: String):Boolean
 
     }
 }
