@@ -18,8 +18,9 @@ class AspectRationImageView @JvmOverloads constructor(
 
     init {
         if(attrs!=null) {
-           val a = context.obtainStyledAttributes(attrs, R.styleable.AspectRationImageView)
+            val a = context.obtainStyledAttributes(attrs, R.styleable.AspectRationImageView)
             aspectRatio = a.getFloat(R.styleable.AspectRationImageView_aspectRatio , DEFAULT_ASPECT_RATIO)
+            aspectRatio = DEFAULT_ASPECT_RATIO
             a.recycle()
         }
     }

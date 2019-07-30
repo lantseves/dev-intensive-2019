@@ -4,6 +4,10 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -27,11 +31,12 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var viewFields : Map<String , TextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         initViews(savedInstanceState)
         initViewModel()
-        
+        Log.d("M_ProfileActivity", "onCreate")
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -44,6 +49,14 @@ class ProfileActivity : AppCompatActivity() {
         viewModel.getProfileData().observe(this , Observer {
             updateUI(it)
         })
+        viewModel.getTheme().observe(this , Observer {
+            updateTheme(it)
+        })
+    }
+
+    private fun updateTheme(mode: Int) {
+        Log.d("M_ProfileActivity", "updateTheme")
+        delegate.setLocalNightMode(mode)
     }
 
     private fun updateUI(profile: Profile) {
@@ -56,9 +69,6 @@ class ProfileActivity : AppCompatActivity() {
 
 
     private fun initViews(savedInstanceState: Bundle?) {
-
-        isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE , false) ?: false
-
         viewFields = mapOf(
                 "nickName" to tv_nick_name,
                 "rank" to tv_rank,
@@ -70,11 +80,44 @@ class ProfileActivity : AppCompatActivity() {
                 "respect" to tv_respect
         )
 
+        isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE , false) ?: false
+
+        showCurrentMode(isEditMode)
+
         btn_edit.setOnClickListener {
             if(isEditMode) saveProfileInfo()
             isEditMode = !isEditMode
             showCurrentMode(isEditMode)
         }
+
+        btn_switch_theme.setOnClickListener {
+            viewModel.switchTheme()
+        }
+
+        et_repository.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+               /* val str = et_repository.text.toString()
+
+                Log.d("M_ProfileActivity", "afterTextChanged")
+                if(str.isNotBlank()) {
+                    wr_repository.isErrorEnabled = true
+                    wr_repository.error = "Невалидный адрес репозитория"
+                } else {
+                    wr_repository
+                }*/
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                Log.d("M_ProfileActivity", "beforeTextChanged")
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.d("M_ProfileActivity", "onTextChanged")
+
+            }
+
+        })
     }
 
     private fun showCurrentMode(isEdit: Boolean) {
@@ -92,6 +135,7 @@ class ProfileActivity : AppCompatActivity() {
         wr_about.isCounterEnabled = isEdit
 
         with(btn_edit) {
+
             val filter: ColorFilter?  = if (isEdit) {
                 PorterDuffColorFilter(
                         resources.getColor(R.color.color_accent , theme),
@@ -105,6 +149,8 @@ class ProfileActivity : AppCompatActivity() {
             } else {
                 resources.getDrawable(R.drawable.ic_edit_black_24dp , theme)
             }
+            background.colorFilter = filter
+            setImageDrawable(icon)
         }
     }
 

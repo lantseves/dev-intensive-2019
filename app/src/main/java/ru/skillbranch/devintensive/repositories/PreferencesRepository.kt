@@ -2,6 +2,7 @@ package ru.skillbranch.devintensive.repositories
 
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import androidx.appcompat.app.AppCompatDelegate
 import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.models.Profile
 
@@ -15,7 +16,7 @@ object PreferencesRepository {
     private const val REPOSITORY = "REPOSITORY"
     private const val RATING = "RATING"
     private const val RESPECT = "RESPECT"
-
+    private const val APP_THEME = "APP_THEME"
 
     private val prefs: SharedPreferences by lazy {
         val ctx = App.applicationContext()
@@ -28,19 +29,17 @@ object PreferencesRepository {
             prefs.getString(ABOUT , "")!!,
             prefs.getString(REPOSITORY , "")!!,
             prefs.getInt(RATING , 0),
-            prefs.getInt(RESPECT , 0) /*, TODO implement
-            prefs.getString(NICK_NAME , "")!!,
-            prefs.getString(RANK , "")!!   */
+            prefs.getInt(RESPECT , 0)
             )
 
     fun saveProfile(profile: Profile) {
         with(profile) {
-            putValue(NICK_NAME to nickName)
-            putValue(RANK to rank)
             putValue(FIRST_NAME to firstName)
             putValue(LAST_NAME to lastName)
             putValue(ABOUT to about)
             putValue(REPOSITORY to repository)
+            putValue(RATING to rating)
+            putValue(RESPECT to respect)
         }
     }
 
@@ -57,4 +56,10 @@ object PreferencesRepository {
             else -> error("Only primitives type can be stored in Shared Preferences")
         }
     }
+
+    fun saveAppTheme(theme: Int) {
+        putValue(APP_THEME to theme)
+    }
+
+    fun getAppTheme() : Int = prefs.getInt(APP_THEME , AppCompatDelegate.MODE_NIGHT_NO)
 }
