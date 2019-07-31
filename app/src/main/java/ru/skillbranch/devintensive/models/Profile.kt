@@ -10,7 +10,7 @@ data class Profile(
         val rating: Int = 0,
         val respect: Int = 0 ) {
 
-    val nickName: String
+    private val nickName: String
         get() {
 
             return "${Utils.transliteration(firstName)}_${Utils.transliteration(lastName)}"

@@ -55,8 +55,8 @@ class CircleImageView @JvmOverloads constructor(
         val sideLength = min(availableWidth, availableHeight)
         val drawableRadius = sideLength / resources.displayMetrics.density
 
-        val left = (paddingLeft + (availableWidth - sideLength) / 2).toFloat()
-        val top = (paddingTop + (availableWidth - sideLength)/ 2).toFloat()
+        val left = (paddingLeft + (availableWidth - sideLength) / 2).toFloat() / resources.displayMetrics.density
+        val top = (paddingTop + (availableWidth - sideLength)/ 2).toFloat() / resources.displayMetrics.density
 
         drawableRect.set(left , top , left + sideLength , top + sideLength)
 

@@ -94,17 +94,17 @@ class ProfileActivity : AppCompatActivity() {
             viewModel.switchTheme()
         }
 
-        et_repository.addTextChangedListener(object : TextWatcher {
+       /* et_repository.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-               /* val str = et_repository.text.toString()
+                val str = et_repository.text.toString()
 
                 Log.d("M_ProfileActivity", "afterTextChanged")
-                if(str.isNotBlank()) {
+                if(false) {
                     wr_repository.isErrorEnabled = true
                     wr_repository.error = "Невалидный адрес репозитория"
                 } else {
                     wr_repository
-                }*/
+                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -117,7 +117,7 @@ class ProfileActivity : AppCompatActivity() {
 
             }
 
-        })
+        })*/
     }
 
     private fun showCurrentMode(isEdit: Boolean) {
