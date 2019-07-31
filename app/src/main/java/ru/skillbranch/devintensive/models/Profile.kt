@@ -12,8 +12,15 @@ data class Profile(
 
     private val nickName: String
         get() {
-
-            return "${Utils.transliteration(firstName)}_${Utils.transliteration(lastName)}"
+            return if (firstName.isNotBlank() && lastName.isNotBlank()) {
+                "${Utils.transliteration(firstName)}_${Utils.transliteration(lastName)}"
+            } else if(lastName.isNotBlank()) {
+                Utils.transliteration(lastName)
+            } else if(firstName.isNotBlank()) {
+                Utils.transliteration(firstName)
+            } else {
+                ""
+            }
         }
 
     val rank: String = "Junior Android Developer"

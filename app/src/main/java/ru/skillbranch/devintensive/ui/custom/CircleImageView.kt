@@ -3,9 +3,11 @@ package ru.skillbranch.devintensive.ui.custom
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
+import androidx.appcompat.app.AppCompatDelegate
 import ru.skillbranch.devintensive.R
 import kotlin.math.min
 
@@ -27,6 +29,7 @@ class CircleImageView @JvmOverloads constructor(
 
     private var bitmapPaint: Paint = Paint()
     private var borderPaint: Paint = Paint()
+    private val typedValue = TypedValue()
     private var backgroundPaint: Paint = Paint()
 
 
@@ -49,20 +52,24 @@ class CircleImageView @JvmOverloads constructor(
 
         backgroundPaint.color = borderColor
 
+        //Получаем высоту и ширину в пикселях с учетом padding
         val availableWidth = width - paddingLeft - paddingRight
         val availableHeight = height - paddingTop - paddingBottom
 
         val sideLength = min(availableWidth, availableHeight)
-        val drawableRadius = sideLength / resources.displayMetrics.density
+        val drawableRadius = sideLength / 2f
 
-        val left = (paddingLeft + (availableWidth - sideLength) / 2).toFloat() / resources.displayMetrics.density
-        val top = (paddingTop + (availableWidth - sideLength)/ 2).toFloat() / resources.displayMetrics.density
+        val left = (paddingLeft + (availableWidth - sideLength) / 2).toFloat()
+        val top = (paddingTop + (availableWidth - sideLength)/ 2).toFloat()
 
         drawableRect.set(left , top , left + sideLength , top + sideLength)
 
         canvas?.drawCircle(drawableRect.centerX() , drawableRect.centerY() , drawableRadius  , backgroundPaint)
 
-        canvas?.drawCircle(drawableRect.centerX(), drawableRect.centerY(), drawableRadius - borderWidth , borderPaint)
+
+        context.theme.resolveAttribute(R.attr.colorAccent, typedValue, true )
+        borderPaint.color = typedValue.data
+        canvas?.drawCircle(drawableRect.centerX(), drawableRect.centerY(), drawableRadius - borderWidth * resources.displayMetrics.density, borderPaint)
 
 
     }

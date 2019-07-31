@@ -151,6 +151,7 @@
             android:layout_height="@dimen/btn_round_size_40"
             android:background="@drawable/ic_avatar"/>
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/wr_first_name"
             android:layout_width="match_parent"
@@ -243,6 +244,8 @@
             android:layout_width="@dimen/btn_round_size_40"
             android:layout_height="@dimen/btn_round_size_40"
             android:src="@drawable/ic_repo"/>
+
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/wr_repository"

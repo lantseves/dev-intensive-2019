@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 
@@ -94,16 +95,16 @@ class ProfileActivity : AppCompatActivity() {
             viewModel.switchTheme()
         }
 
-       /* et_repository.addTextChangedListener(object : TextWatcher {
+        et_repository.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
+                Log.d("M_ProfileActivity", "afterTextChanged")
                 val str = et_repository.text.toString()
 
-                Log.d("M_ProfileActivity", "afterTextChanged")
-                if(false) {
+                if(Utils.isValidateUrlGithub(str)) {
+                    wr_repository.isErrorEnabled = false
+                } else {
                     wr_repository.isErrorEnabled = true
                     wr_repository.error = "Невалидный адрес репозитория"
-                } else {
-                    wr_repository
                 }
             }
 
@@ -117,8 +118,9 @@ class ProfileActivity : AppCompatActivity() {
 
             }
 
-        })*/
+        })
     }
+
 
     private fun showCurrentMode(isEdit: Boolean) {
         val info = viewFields.filter { setOf("firstName","lastName","about","repository").contains(it.key) }
@@ -155,11 +157,17 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun saveProfileInfo() {
+
+        val repository = if (Utils.isValidateUrlGithub(et_repository.text.toString())) {
+             et_repository.text.toString()
+        } else {
+            ""
+        }
         Profile(
                 firstName = et_first_name.text.toString(),
                 lastName = et_last_name.text.toString(),
                 about = et_about.text.toString(),
-                repository = et_repository.text.toString()
+                repository = repository
         ).apply {
             viewModel.saveProfileData(this)
         }

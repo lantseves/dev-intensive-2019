@@ -1,6 +1,6 @@
 <resources>
     
-    <style name="SplahTheme" parent="AppTheme">
+    <style name="SplahTheme">
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
