@@ -163,6 +163,7 @@ class ProfileActivity : AppCompatActivity() {
         } else {
             ""
         }
+
         Profile(
                 firstName = et_first_name.text.toString(),
                 lastName = et_last_name.text.toString(),
@@ -170,6 +171,12 @@ class ProfileActivity : AppCompatActivity() {
                 repository = repository
         ).apply {
             viewModel.saveProfileData(this)
+
+            if (firstName.isNotBlank() || lastName.isNotBlank()) {
+                iv_avatar.generateAvatar(Utils.toInitials(firstName , lastName) , 16 , theme)
+            } else {
+                iv_avatar.generateAvatar("" , 1 , theme)
+            }
         }
     }
 }
