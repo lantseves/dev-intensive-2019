@@ -16,23 +16,16 @@ fun Activity.hideKeyboard() {
     inputMethodManager?.hideSoftInputFromWindow(currentFocus?.windowToken , InputMethodManager.HIDE_NOT_ALWAYS)
 }
 
-fun Activity.isKeyboardOpen(): Boolean {
-    //TODO
-    var r: Rect = Rect()
-    val rootView = window.decorView
-    rootView.getWindowVisibleDisplayFrame(r)
-    val screenHeight = rootView.height
-    var heightDiff = screenHeight - (r.bottom - r.top)
+fun Activity.isKeyboardOpen(): Boolean{
+    val rootView = findViewById<View>(android.R.id.content)
+    val visibleBounds = Rect()
+    rootView.getWindowVisibleDisplayFrame(visibleBounds)
+    val heightDiff = rootView.height - visibleBounds.height()
+    val marginOfError = this.convertDpToPx(50F).roundToLong()
 
-    return heightDiff > 128
+    return heightDiff > marginOfError
 }
 
 fun Activity.isKeyboardClosed(): Boolean {
-    var r: Rect = Rect()
-    val rootView = window.decorView
-    rootView.getWindowVisibleDisplayFrame(r)
-    val screenHeight = rootView.height
-    var heightDiff = screenHeight - (r.bottom - r.top)
-
-    return heightDiff < 128
+    return this.isKeyboardOpen().not()
 }
