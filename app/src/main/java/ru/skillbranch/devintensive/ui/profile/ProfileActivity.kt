@@ -66,6 +66,12 @@ class ProfileActivity : AppCompatActivity() {
                 v.text = it[k].toString()
             }
         }
+        
+        if (profile.firstName.isNotBlank() || profile.lastName.isNotBlank()) {
+                iv_avatar.generateAvatar(Utils.toInitials(profile.firstName , profile.lastName) , 16 , theme)
+            } else {
+                iv_avatar.generateAvatar("" , 1 , theme)
+            }
     }
 
 
@@ -171,12 +177,6 @@ class ProfileActivity : AppCompatActivity() {
                 repository = repository
         ).apply {
             viewModel.saveProfileData(this)
-
-            if (firstName.isNotBlank() || lastName.isNotBlank()) {
-                iv_avatar.generateAvatar(Utils.toInitials(firstName , lastName) , 16 , theme)
-            } else {
-                iv_avatar.generateAvatar("" , 1 , theme)
-            }
         }
     }
 }
