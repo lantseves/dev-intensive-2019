@@ -27,7 +27,6 @@ class CircleImageView @JvmOverloads constructor(
     private var borderColor = DEFAULT_BORDER_COLOR
     private var borderWidth = DEFAULT_BORDER_WIDTH
     private var bitmap : Bitmap? = null
-    private var text: String? = null
 
     init {
         val a = context.obtainStyledAttributes(attrs , R.styleable.CircleImageView)
