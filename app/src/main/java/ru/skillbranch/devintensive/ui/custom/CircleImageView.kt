@@ -109,6 +109,23 @@ class CircleImageView @JvmOverloads constructor(
             bitmap
         }
     }
+        
+    private fun getBitmapFromDrawable(drawable: Drawable?): Bitmap? {
+        if(drawable == null) {
+            return null
+        }
+
+        if(drawable is BitmapDrawable) {
+            return drawable.bitmap
+        }
+
+        val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth , drawable.intrinsicHeight , Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, canvas.width ,canvas.height)
+        drawable.draw(canvas)
+
+        return bitmap
+    }
 
     @Dimension
     fun getBorderWidth(): Int = borderWidth
@@ -129,25 +146,7 @@ class CircleImageView @JvmOverloads constructor(
         borderColor = Color.parseColor(hex)
         this.invalidate()
     }
-
-    private fun getBitmapFromDrawable(drawable: Drawable?): Bitmap? {
-        if(drawable == null) {
-            return null
-        }
-
-        if(drawable is BitmapDrawable) {
-            return drawable.bitmap
-        }
-
-        val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth , drawable.intrinsicHeight , Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.width ,canvas.height)
-        drawable.draw(canvas)
-
-        return bitmap
-    }
-
-
+        
     private fun toPx(dp: Int): Float = dp * resources.displayMetrics.density
 
     private fun toDp(px: Float): Int = (px / resources.displayMetrics.density).toInt()
