@@ -3,6 +3,7 @@
 //Надо добавить в CirlceimageView
 
 public Bitmap getRoundedShape(Bitmap scaleBitmapImage) {
+    
     int targetWidth = 50;
     int targetHeight = 50;
     Bitmap targetBitmap = Bitmap.createBitmap(targetWidth, 
