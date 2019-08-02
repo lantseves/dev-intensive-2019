@@ -112,6 +112,8 @@ class CircleImageView @JvmOverloads constructor(
 
     @Dimension
     fun getBorderWidth(): Int = borderWidth
+        
+    fun getBorderColor(): Int = borderColor
 
     fun setBorderWidth(@Dimension dp: Int) {
         borderWidth = dp
