@@ -66,12 +66,7 @@ class ProfileActivity : AppCompatActivity() {
                 v.text = it[k].toString()
             }
         }
-        
-        if (profile.firstName.isNotBlank() || profile.lastName.isNotBlank()) {
-                iv_avatar.generateAvatar(Utils.toInitials(profile.firstName , profile.lastName) , 16 , theme)
-            } else {
-                iv_avatar.generateAvatar("" , 1 , theme)
-            }
+       
     }
 
 
