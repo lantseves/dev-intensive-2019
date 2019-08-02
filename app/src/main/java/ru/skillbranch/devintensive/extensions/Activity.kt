@@ -17,7 +17,8 @@ fun Activity.hideKeyboard() {
 }
 
 fun Activity.isKeyboardOpen(): Boolean{
-    val rootView = findViewById<View>(android.R.id.content)
+    
+    val rootView = window.decorView
     val visibleBounds = Rect()
     rootView.getWindowVisibleDisplayFrame(visibleBounds)
     val heightDiff = rootView.height - visibleBounds.height()
