@@ -10,12 +10,14 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
+import android.widget.ScrollView
 import android.widget.TextView
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.view.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
 import ru.skillbranch.devintensive.utils.Utils
@@ -28,8 +30,9 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private lateinit var viewModel: ProfileViewModel
-    var isEditMode = false
-    lateinit var viewFields : Map<String , TextView>
+    private var isEditMode = false
+    private lateinit var viewFields : Map<String , TextView>
+    private lateinit var scrollView : ScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -81,6 +84,7 @@ class ProfileActivity : AppCompatActivity() {
                 "rating" to tv_rating,
                 "respect" to tv_respect
         )
+        scrollView = scroll_profile
 
         isEditMode = savedInstanceState?.getBoolean(IS_EDIT_MODE , false) ?: false
 
@@ -98,25 +102,28 @@ class ProfileActivity : AppCompatActivity() {
 
         et_repository.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
+                var isError = wr_repository.isErrorEnabled
                 Log.d("M_ProfileActivity", "afterTextChanged")
                 val str = et_repository.text.toString()
 
                 if(Utils.isValidateUrlGithub(str)) {
                     wr_repository.isErrorEnabled = false
+                    if(isError) {
+                        //scroll_profile.smoothScrollTo(0, scroll_profile.bottom)
+                    }
                 } else {
                     wr_repository.isErrorEnabled = true
                     wr_repository.error = "Невалидный адрес репозитория"
+                    //scroll_profile.scrollBy(0 , 90)
                 }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                Log.d("M_ProfileActivity", "beforeTextChanged")
 
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.d("M_ProfileActivity", "onTextChanged")
-
+                scroll_profile.smoothScrollBy(0 , 30)
             }
 
         })
