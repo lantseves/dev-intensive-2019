@@ -100,6 +100,8 @@ class ProfileActivity : AppCompatActivity() {
             viewModel.switchTheme()
         }
 
+
+
         et_repository.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 var isError = wr_repository.isErrorEnabled

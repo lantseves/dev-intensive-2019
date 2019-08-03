@@ -73,6 +73,14 @@ object Utils {
     private val anExcepton : List<String> = listOf("enterprise", "features", "topics", "collections",
             "trending", "events", "marketplace", "pricing", "nonprofit", "customer-stories", "security", "login", "join")
 
+    private fun getRegexExceptions(): String {
+        val exceptions = arrayOf(
+                "enterprise", "features", "topics", "collections", "trending", "events", "marketplace", "pricing",
+                "nonprofit", "customer-stories", "security", "login", "join"
+        )
+        return exceptions.joinToString("|")
+    }
+
     fun isValidateUrlGithub(s: String):Boolean {
         if (s.isEmpty()) return true
 
@@ -80,7 +88,8 @@ object Utils {
         val exp = s.replace(Regex("""(https://)?(www.)?github.com/""") , "")
 
         if (anExcepton.contains(exp)) return false
-
-        return Regex("""(https://)?(www.)?github.com/(\w*[^/])""").containsMatchIn(s)
+        val regStr = "^(https:\\/\\/)?(www\\.)?(github\\.com\\/)(?!(${getRegexExceptions()})(?=\\/|\$))[a-zA-Z\\d](?:[a-zA-Z\\d]|-(?=[a-zA-Z\\d])){0,38}(\\/)?$"
+        return (s.isNotEmpty()) && Regex(regStr).containsMatchIn(s)
+        //return Regex("""(https://)?(www.)?github.com/(\w*[^/])""").containsMatchIn(s)
     }
 }
