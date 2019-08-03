@@ -123,7 +123,7 @@ class ProfileActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                scroll_profile.smoothScrollBy(0 , 30)
+                scroll_profile.smoothScrollBy(0 , wr_repository.bottom)
             }
 
         })
