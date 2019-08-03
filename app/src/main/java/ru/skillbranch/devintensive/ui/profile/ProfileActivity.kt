@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive.ui.profile
 
+import android.graphics.Color
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_profile.view.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.ui.custom.AvatarDrawable
 import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
@@ -29,6 +31,7 @@ class ProfileActivity : AppCompatActivity() {
         const val IS_EDIT_MODE = "IS_EDIT_MODE"
     }
 
+    private lateinit var savedProfile: Profile
     private lateinit var viewModel: ProfileViewModel
     private var isEditMode = false
     private lateinit var viewFields : Map<String , TextView>
@@ -61,6 +64,11 @@ class ProfileActivity : AppCompatActivity() {
     private fun updateTheme(mode: Int) {
         Log.d("M_ProfileActivity", "updateTheme")
         delegate.setLocalNightMode(mode)
+
+        val initials = Utils.toInitials(savedProfile.firstName , savedProfile.lastName)
+        if(initials.isNullOrBlank().not()) {
+            iv_avatar.setImageDrawable(initials?.let { AvatarDrawable(it, context = this) })
+        }
     }
 
     private fun updateUI(profile: Profile) {
@@ -69,7 +77,7 @@ class ProfileActivity : AppCompatActivity() {
                 v.text = it[k].toString()
             }
         }
-       
+        savedProfile = profile
     }
 
 
@@ -98,25 +106,27 @@ class ProfileActivity : AppCompatActivity() {
 
         btn_switch_theme.setOnClickListener {
             viewModel.switchTheme()
+
         }
 
+        //смещение при описание ошибки
+        wr_repository.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            Log.d("M_ProfileActivity", "ChangeListener")
+            if(wr_repository.isErrorEnabled)
+            scroll_profile.smoothScrollBy(0, wr_repository.bottom)
+        }
 
 
         et_repository.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                var isError = wr_repository.isErrorEnabled
                 Log.d("M_ProfileActivity", "afterTextChanged")
                 val str = et_repository.text.toString()
 
                 if(Utils.isValidateUrlGithub(str)) {
                     wr_repository.isErrorEnabled = false
-                    if(isError) {
-                        //scroll_profile.smoothScrollTo(0, scroll_profile.bottom)
-                    }
                 } else {
                     wr_repository.isErrorEnabled = true
                     wr_repository.error = "Невалидный адрес репозитория"
-                    //scroll_profile.scrollBy(0 , 90)
                 }
             }
 
@@ -125,7 +135,7 @@ class ProfileActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                scroll_profile.smoothScrollBy(0 , wr_repository.bottom)
+
             }
 
         })
@@ -181,6 +191,11 @@ class ProfileActivity : AppCompatActivity() {
                 repository = repository
         ).apply {
             viewModel.saveProfileData(this)
+        }
+
+        val initials = Utils.toInitials(savedProfile.firstName , savedProfile.lastName)
+        if(initials.isNullOrBlank().not()) {
+            iv_avatar.setImageDrawable(initials?.let { AvatarDrawable(it, context = this) })
         }
     }
 }

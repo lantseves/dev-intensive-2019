@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -11,6 +12,7 @@ import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
 import ru.skillbranch.devintensive.R
+import java.lang.Exception
 import kotlin.math.min
 
 class CircleImageView @JvmOverloads constructor(
@@ -33,14 +35,11 @@ class CircleImageView @JvmOverloads constructor(
         borderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor , DEFAULT_BORDER_COLOR)
         borderWidth = a.getInt(R.styleable.CircleImageView_cv_borderWidth , DEFAULT_BORDER_WIDTH)
         a.recycle()
-
-        bitmap = getBitmapFromDrawable(drawable)
-        bitmap = getCircleBitmap(bitmap!!)
     }
 
 
     override fun onDraw(canvas: Canvas) {
-        if (bitmap == null) return
+        bitmap = getBitmapFromDrawable(drawable) ?: return
         if (width == 0 || height == 0) return
 
         bitmap = getScaledBitmap(bitmap!!, width)
@@ -118,12 +117,26 @@ class CircleImageView @JvmOverloads constructor(
             return drawable.bitmap
         }
 
-        val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth , drawable.intrinsicHeight , Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.width ,canvas.height)
-        drawable.draw(canvas)
+        return try {
 
-        return bitmap
+            val bitmap = if(drawable is ColorDrawable) {
+                Bitmap.createBitmap(2 , 2 , Bitmap.Config.ARGB_8888)
+            } else {
+                if(drawable.intrinsicWidth < 0  && drawable.minimumHeight < 0) {
+                    Bitmap.createBitmap(drawable.minimumWidth, drawable.minimumHeight, Bitmap.Config.ARGB_8888)
+                } else {
+                    Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                }
+            }
+
+            val canvas = Canvas(bitmap)
+            drawable.setBounds(0, 0, canvas.width ,canvas.height)
+            drawable.draw(canvas)
+
+            bitmap
+        } catch (e: Exception) {
+            null
+        }
     }
 
     @Dimension
