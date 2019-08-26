@@ -196,6 +196,8 @@ class ProfileActivity : AppCompatActivity() {
         val initials = Utils.toInitials(savedProfile.firstName , savedProfile.lastName)
         if(initials.isNullOrBlank().not()) {
             iv_avatar.setImageDrawable(initials?.let { AvatarDrawable(it, context = this) })
+        }else {
+            iv_avatar.setImageResource(R.drawable.avatar_default)
         }
     }
 }

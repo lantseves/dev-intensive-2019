@@ -24,7 +24,7 @@ class AvatarDrawable(
 
         if (initials.isNotBlank()) {
             paint.textAlign = Paint.Align.CENTER
-            val pixel = convertSpToPixels(sizeTextSP , context)
+            val pixel = convertDpToPixels(sizeTextSP , context)
             paint.textSize = pixel
             paint.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
             paint.color = Color.WHITE
@@ -51,8 +51,15 @@ class AvatarDrawable(
         height = bounds?.height()?.toFloat() ?: 0f
     }
 
-    fun convertSpToPixels(dp: Float, context: Context): Float {
+    private fun convertDpToPixels(dp: Float, context: Context): Float {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
     }
 
+    override fun getIntrinsicWidth(): Int {
+        return width.toInt()
+    }
+
+    override fun getIntrinsicHeight(): Int {
+        return height.toInt()
+    }
 }
