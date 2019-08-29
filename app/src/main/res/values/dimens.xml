@@ -18,4 +18,5 @@
     <dimen name="space_maximum_72">72dp</dimen>
     <dimen name="item_size">72dp</dimen>
     <dimen name="count_size">20dp</dimen>
+    <dimen name="icon_size">20dp</dimen>
 </resources>
