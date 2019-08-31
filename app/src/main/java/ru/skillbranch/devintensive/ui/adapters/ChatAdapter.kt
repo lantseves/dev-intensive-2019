@@ -83,8 +83,15 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
 
     inner class GroupViewHolder(convertView: View) : ChatItemViewHolder(convertView) {
         override fun bind(item:ChatItem) {
-            //TODO iv_avatar_group.setInitials(item.title[0].toString())
 
+            if (item.avatar != null) {
+                Glide.with(itemView)
+                        .load(item.avatar)
+                        .into(iv_avatar_group)
+            }else {
+                Glide.with(itemView).clear(iv_avatar_group)
+                iv_avatar_group.setInitials(item.title[0].toString())
+            }
             with(tv_date_group) {
                 visibility = if(item.lastMessageDate != null) View.VISIBLE else View.GONE
                 text = item.lastMessageDate
@@ -114,9 +121,8 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
            if(item.avatar == null) {
                 Glide.with(itemView)
                         .clear(iv_avatar_single)
-                //TODO iv_avatar_single.setInitials(item.initials)
+                        iv_avatar_single.setInitials(item.initials)
             } else {
-                //TODO set drawable
                 Glide.with(itemView)
                         .load(item.avatar)
                         .into(iv_avatar_single)

@@ -1,6 +1,5 @@
 package ru.skillbranch.devintensive.ui.profile
 
-import android.graphics.Color
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -8,7 +7,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ScrollView
@@ -18,10 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.activity_profile.view.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
-import ru.skillbranch.devintensive.ui.custom.AvatarDrawable
 import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
@@ -38,7 +34,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var scrollView : ScrollView
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
+        //setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
         initViews(savedInstanceState)
@@ -64,11 +60,7 @@ class ProfileActivity : AppCompatActivity() {
     private fun updateTheme(mode: Int) {
         Log.d("M_ProfileActivity", "updateTheme")
         delegate.setLocalNightMode(mode)
-
-        val initials = Utils.toInitials(savedProfile.firstName , savedProfile.lastName)
-        if(initials.isNullOrBlank().not()) {
-            iv_avatar.setImageDrawable(initials?.let { AvatarDrawable(it, context = this) })
-        }
+        iv_avatar.setInitials(Utils.toInitials(savedProfile.firstName , savedProfile.lastName))
     }
 
     private fun updateUI(profile: Profile) {
@@ -193,12 +185,8 @@ class ProfileActivity : AppCompatActivity() {
             viewModel.saveProfileData(this)
         }
 
-        val initials = Utils.toInitials(savedProfile.firstName , savedProfile.lastName)
-        if(initials.isNullOrBlank().not()) {
-            iv_avatar.setImageDrawable(initials?.let { AvatarDrawable(it, context = this) })
-        }else {
-            iv_avatar.setImageResource(R.drawable.avatar_default)
-        }
+        iv_avatar.setInitials(Utils.toInitials(savedProfile.firstName , savedProfile.lastName))
+
     }
 }
 

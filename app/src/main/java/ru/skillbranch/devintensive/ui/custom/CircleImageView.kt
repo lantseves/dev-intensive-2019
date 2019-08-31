@@ -158,6 +158,10 @@ class CircleImageView @JvmOverloads constructor(
         borderColor = Color.parseColor(hex)
         this.invalidate()
     }
+
+    fun setInitials(text:String?) {
+        setImageDrawable(AvatarDrawable(text ?: "??" ,context))
+    }
         
     private fun toPx(dp: Int): Float = dp * resources.displayMetrics.density
 

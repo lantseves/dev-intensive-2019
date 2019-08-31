@@ -31,14 +31,13 @@ class UserAdapter(val listener: (UserItem) -> Unit) : RecyclerView.Adapter<UserA
                 return items[oldItemPosition].id == data[newItemPosition].id
             }
 
-            override fun getOldListSize(): Int = items.size
-
-            override fun getNewListSize(): Int = data.size
-
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                 return items[oldItemPosition] == data[newItemPosition]
             }
 
+            override fun getOldListSize(): Int = items.size
+
+            override fun getNewListSize(): Int = data.size
         }
 
         val diffResult = DiffUtil.calculateDiff(diffCallback)
@@ -58,7 +57,7 @@ class UserAdapter(val listener: (UserItem) -> Unit) : RecyclerView.Adapter<UserA
                         .into(iv_avatar_user)
             } else {
                 Glide.with(itemView).clear(iv_avatar_user)
-                //TODO iv_avatar_user.setInitials(user.initials ?: "??")
+                iv_avatar_user.setInitials(user.initials ?: "??")
             }
 
             sv_indicator.visibility = if (user.isOnline) View.VISIBLE else View.GONE

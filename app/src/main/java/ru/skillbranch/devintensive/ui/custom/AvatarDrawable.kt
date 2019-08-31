@@ -24,7 +24,7 @@ class AvatarDrawable(
 
         if (initials.isNotBlank()) {
             paint.textAlign = Paint.Align.CENTER
-            val pixel = convertDpToPixels(sizeTextSP , context)
+            val pixel = convertDpToPixels(width /6 , context)
             paint.textSize = pixel
             paint.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL)
             paint.color = Color.WHITE

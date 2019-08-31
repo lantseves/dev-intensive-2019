@@ -3,6 +3,8 @@ package ru.skillbranch.devintensive.models.data
 import androidx.annotation.VisibleForTesting
 import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.BaseMessage
+import ru.skillbranch.devintensive.models.ImageMessage
+import ru.skillbranch.devintensive.models.TextMessage
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
@@ -15,21 +17,26 @@ data class Chat(
 ) {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun unreadableMessageCount(): Int {
-        //TODO implement me
-        return 0
+        val msgsIsNotReaded = messages.map { !it.isReaded }
+        return msgsIsNotReaded.size
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageDate(): Date? {
-        //TODO implement me
-        return Date()
+        val messagesDates = messages
+                .map { it.date }
+                .sorted()
+
+        return messagesDates.lastOrNull()
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun lastMessageShort(): Pair<String?, String?> = when(messages.lastOrNull()){
-        //TODO implement me
-
-        else -> "Сообщений нет" to "@John_Doe"
+    fun lastMessageShort(): Pair<String?, String?> {
+        return when (val msg = messages.lastOrNull()) {
+            is TextMessage -> msg.text?.trim() to "${msg.from.firstName ?: ""} ${msg.from.lastName ?: ""}".trim()
+            is ImageMessage-> null to null
+            else -> "Сообщений нет" to "@John_Doe"
+        }
     }
 
 
