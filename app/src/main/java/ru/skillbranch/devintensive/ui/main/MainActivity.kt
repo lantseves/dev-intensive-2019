@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val divider = DividerItemDecoration(this , DividerItemDecoration.VERTICAL)
+
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter) {chat ->
             viewModel.addToArchive(chat.id)
             val snkBar =Snackbar.make(rv_chat_list , "Вы точно хотите добавить ${chat.title} в архив?" , Snackbar.LENGTH_LONG)

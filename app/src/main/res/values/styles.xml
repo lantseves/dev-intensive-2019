@@ -35,6 +35,11 @@
         <item name="android:layout_alignParentTop">true</item>
     </style>
 
+    <style name="Chat.textView.author" parent="Chat.textView">
+        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="Chat.counter" parent="Chat">
         <item name="android:minWidth">@dimen/count_size</item>
         <item name="android:textSize">10sp</item>

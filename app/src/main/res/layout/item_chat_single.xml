@@ -39,7 +39,7 @@
         android:id="@+id/tv_message_single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text = "Когда я проходил интенсив, я мало спал"
+        tools:text = "Когда я проходил интенсив, я мало cпал"
         style="@style/Chat.textView.bottom"
         android:layout_toRightOf="@id/iv_avatar_single"
         android:layout_below="@id/tv_title_single"

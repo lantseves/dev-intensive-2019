@@ -33,8 +33,8 @@ data class Chat(
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageShort(): Pair<String?, String?> {
         return when (val msg = messages.lastOrNull()) {
-            is TextMessage -> msg.text?.trim() to "${msg.from.firstName ?: ""} ${msg.from.lastName ?: ""}".trim()
-            is ImageMessage-> null to null
+            is TextMessage -> msg.text?.trim() to (msg.from.firstName ?: "").trim()
+            is ImageMessage-> "user.firstName - отправил фото" to (msg.from.firstName ?: "").trim()
             else -> "Сообщений нет" to "@John_Doe"
         }
     }

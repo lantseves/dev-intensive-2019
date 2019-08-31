@@ -6,59 +6,60 @@
     android:padding="@dimen/spacing_normal_16">
 
     <ru.skillbranch.devintensive.ui.custom.CircleImageView
-        android:id="@+id/iv_avatar_group"
+        android:id="@+id/iv_avatar_archive"
         android:layout_width="@dimen/btn_round_size_40"
         android:layout_height="@dimen/btn_round_size_40"
         android:layout_marginRight="@dimen/spacing_normal_16"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/avatar_default"
+        android:src="@drawable/ic_archive_black_24dp"
+        android:background="@drawable/bg_ic_archive"
         />
 
     <TextView
-        android:id="@+id/tv_title_group"
+        android:id="@+id/tv_title_archive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text = "chat title"
+        android:text = "Архив чатов"
         style="@style/Chat.textView.title"
-        android:layout_toRightOf="@id/iv_avatar_group"
-        android:layout_toLeftOf="@id/tv_date_group"
+        android:layout_toRightOf="@id/iv_avatar_archive"
+        android:layout_toLeftOf="@id/tv_date_archive"
         android:layout_marginRight="@dimen/spacing_normal_16"
         android:maxLines="1"
         />
 
     <TextView
-        android:id="@+id/tv_message_author"
+        android:id="@+id/tv_message_author_archive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text = "\@John_Doe"
         style="@style/Chat.textView.author"
-        android:layout_toRightOf="@id/iv_avatar_group"
-        android:layout_below="@id/tv_title_group"
+        android:layout_toRightOf="@id/iv_avatar_archive"
+        android:layout_below="@id/tv_title_archive"
         android:layout_marginRight="@dimen/spacing_tiny_4"
         android:visibility="gone"
         tools:visibility="visible"
         />
 
     <TextView
-        android:id="@+id/tv_message_group"
+        android:id="@+id/tv_message_archive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text = "Когда я проходил интенсив я мало спал"
         style="@style/Chat.textView.bottom"
-        android:layout_toRightOf="@+id/tv_message_author"
-        android:layout_below="@id/tv_title_group"
+        android:layout_toRightOf="@+id/tv_message_author_archive"
+        android:layout_below="@id/tv_title_archive"
         android:layout_marginRight="@dimen/font_normal_16"
         />
 
     <TextView
-        android:id="@+id/tv_date_group"
+        android:id="@+id/tv_date_archive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/Chat.textView.date"
         android:text="18:00"/>
 
     <TextView
-        android:id="@+id/tv_counter_group"
+        android:id="@+id/tv_counter_archive"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/count_size"
         style="@style/Chat.counter"
