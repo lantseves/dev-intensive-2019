@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.models.data.ChatType
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
+import ru.skillbranch.devintensive.ui.archive.ArchiveActivity
 import ru.skillbranch.devintensive.ui.group.GroupActivity
 import ru.skillbranch.devintensive.viewmodels.MainViewModel
 
@@ -61,14 +63,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         chatAdapter = ChatAdapter{
-            Snackbar.make(rv_chat_list , "Click on ${it.title}" , Snackbar.LENGTH_LONG).show()
+            when(it.chatType) {
+                ChatType.ARCHIVE -> {
+                    val intent = Intent(this , ArchiveActivity::class.java)
+                    startActivity(intent)
+                }
+                else -> Snackbar.make(rv_chat_list , "Click on ${it.title}" , Snackbar.LENGTH_LONG).show()
+            }
         }
 
         val divider = DividerItemDecoration(this , DividerItemDecoration.VERTICAL)
 
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter) {chat ->
             viewModel.addToArchive(chat.id)
-            val snkBar =Snackbar.make(rv_chat_list , "Вы точно хотите добавить ${chat.title} в архив?" , Snackbar.LENGTH_LONG)
+            val snkBar =Snackbar.make(rv_chat_list , "Вы точно хотите добавить ${chat.title.trim()} в архив?" , Snackbar.LENGTH_LONG)
                     .setAction("Отмена") {
                         viewModel.restoreFromArchive(chat.id)
                     }
