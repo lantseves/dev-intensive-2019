@@ -1,10 +1,15 @@
 package ru.skillbranch.devintensive.ui.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Menu
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.core.graphics.toColor
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,21 +18,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.extensions.setTextColor
 import ru.skillbranch.devintensive.models.data.ChatType
+import ru.skillbranch.devintensive.repositories.PreferencesRepository
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
 import ru.skillbranch.devintensive.ui.archive.ArchiveActivity
+import ru.skillbranch.devintensive.ui.custom.MyDividerItemDecorator
 import ru.skillbranch.devintensive.ui.group.GroupActivity
 import ru.skillbranch.devintensive.viewmodels.MainViewModel
 
 class MainActivity : AppCompatActivity() {
-
 
     private lateinit var chatAdapter: ChatAdapter
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //setTheme(R.style.AppTheme)
+        delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initToolbar()
@@ -72,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val divider = DividerItemDecoration(this , DividerItemDecoration.VERTICAL)
+        val divider = MyDividerItemDecorator(getDrawable(R.drawable.divider)!!)
 
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter) {chat ->
             viewModel.addToArchive(chat.id)
@@ -80,6 +88,9 @@ class MainActivity : AppCompatActivity() {
                     .setAction("Отмена") {
                         viewModel.restoreFromArchive(chat.id)
                     }
+            val a = TypedValue()
+            theme.resolveAttribute(R.attr.snackbarTextColor, a, true)
+            snkBar.setTextColor(a.data)
             snkBar.view.background = resources.getDrawable(R.drawable.bg_snackbar , theme)
             snkBar.show()
         }

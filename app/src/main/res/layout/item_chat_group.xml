@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_size"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="@dimen/spacing_normal_16">
+    android:padding="@dimen/spacing_normal_16"
+    style="@style/Chat.Item">
 
     <ru.skillbranch.devintensive.ui.custom.CircleImageView
         android:id="@+id/iv_avatar_group"
@@ -54,7 +55,7 @@
         android:id="@+id/tv_date_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Chat.textView.date"
+        style="@style/Chat.textView.bottom.date"
         android:text="18:00"/>
 
     <TextView

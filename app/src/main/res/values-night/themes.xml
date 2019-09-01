@@ -3,14 +3,28 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@android:color/white</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorPrimary">@color/color_primary_night</item>
+        <item name="colorPrimaryDark">@color/color_black</item>
         <item name="colorAccent">@color/color_accent_night</item>
+        <item name="android:windowBackground">@color/color_black_snackBar</item>
+
 
         <item name="colorAccentedSurface">@color/color_divider_light</item>
         <item name="colorIcon">@android:color/white</item>
         <item name="colorDivider">@color/color_divider_dark</item>
-        <item name="android:statusBarColor">@android:color/black</item>
+
+        <item name="titleChatTextColor">@android:color/white</item>
+        <item name="messageChatTextColor">@color/color_gray</item>
+        <item name="counterBgColor">@color/color_gray_dark</item>
+        <item name="authorChatTextColor">@android:color/white</item>
+        <item name="iconArchiveColor">@color/color_gray</item>
+        <item name="snackbarBgColor">@android:color/white</item>
+        <item name="snackbarTextColor">@color/color_black_snackBar</item>
+        <item name="chipCloseColor">@color/color_gray</item>
+        <item name="chipBgColor">@color/color_black_dark</item>
+        <item name="itemListBgColor">@color/color_black_dark</item>
+        <item name="swipeItemListBgColor">@color/color_accent_night</item>
+
 
     </style>
 </resources>

@@ -1,6 +1,7 @@
 package ru.skillbranch.devintensive.ui.adapters
 
 import android.graphics.Color
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,11 +78,15 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
 
     inner class GroupViewHolder(convertView: View) : ChatItemViewHolder(convertView), ItemTouchViewHolder {
         override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
+            val bgColor = TypedValue()
+            containerView?.context?.theme?.resolveAttribute(R.attr.itemListBgColor, bgColor, true)
+            itemView.setBackgroundColor(bgColor.data)
         }
 
         override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
+            val bgColor = TypedValue()
+            containerView?.context?.theme?.resolveAttribute(R.attr.itemListBgColor, bgColor, true)
+            itemView.setBackgroundColor(bgColor.data)
         }
 
         override fun bind(item:ChatItem) {
@@ -121,11 +126,15 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
 
     inner class SingleViewHolder(convertView: View) : ChatItemViewHolder(convertView), ItemTouchViewHolder {
         override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
+            val bgColor = TypedValue()
+            containerView?.context?.theme?.resolveAttribute(R.attr.itemListBgColor, bgColor, true)
+            itemView.setBackgroundColor(bgColor.data)
         }
 
         override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
+            val bgColor = TypedValue()
+            containerView?.context?.theme?.resolveAttribute(R.attr.itemListBgColor, bgColor, true)
+            itemView.setBackgroundColor(bgColor.data)
         }
 
         override fun bind(item:ChatItem) {

@@ -20,24 +20,9 @@ class MainViewModel: ViewModel() {
                 .sortedBy { it.id.toInt() }.toMutableList()
 
         val archive = chats.filter { it.isArchived }
-                .sortedBy { it.lastMessageDate() }
 
         if (archive.isNotEmpty()) {
-            var counter = 0
-            for(chat in archive) {
-                counter += chat.unreadableMessageCount()
-
-            }
-            result.add(0 , ChatItem( "archive" ,
-                    "" ,
-                    "" ,
-                    "Архив чатов" ,
-                    archive.last().lastMessageShort().first ,
-                    counter ,
-                    archive.last().lastMessageDate()?.shortFormat(),
-                    false,
-                    ChatType.ARCHIVE ,
-                    archive.last().lastMessageShort().second))
+            result.add(0 , Chat.toChatArchive(archive))
         }
 
         return@map result

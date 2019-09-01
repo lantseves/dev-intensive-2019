@@ -11,8 +11,14 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
 
+
+
     <style name="Chat">
 
+    </style>
+
+    <style name="Chat.Item">
+        <item name="android:background">?attr/itemListBgColor</item>
     </style>
 
     <style name="Chat.textView" parent="Chat">
@@ -20,23 +26,22 @@
     </style>
 
     <style name="Chat.textView.title" parent="Chat.textView">
-        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:textColor">?attr/titleChatTextColor</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
     <style name="Chat.textView.bottom" parent="Chat.textView">
-        <item name="android:textColor">@color/color_gray_dark</item>
+        <item name="android:textColor">?attr/messageChatTextColor</item>
     </style>
 
-    <style name="Chat.textView.date" parent="Chat.textView">
-        <item name="android:textColor">@color/color_gray_dark</item>
+    <style name="Chat.textView.bottom.date" parent="Chat.textView.bottom">
         <item name="android:textSize">10sp</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_alignParentTop">true</item>
     </style>
 
     <style name="Chat.textView.author" parent="Chat.textView">
-        <item name="android:textColor">@color/color_primary</item>
+        <item name="android:textColor">?attr/authorChatTextColor</item>
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -51,6 +56,7 @@
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/bg_counter</item>
     </style>
+
 
 
 

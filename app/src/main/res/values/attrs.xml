@@ -4,13 +4,29 @@
         <attr name="aspectRatio" format="float"/>
     </declare-styleable>
 
-    <attr name="colorAccentedSurface" format="reference"/>
-    <attr name="colorDivider" format="reference"/>
-    <attr name="colorIcon" format="reference"/>
-    
     <declare-styleable name="CircleImageView">
         <attr name="cv_borderColor" format="color"/>
         <attr name="cv_borderWidth" format="dimension"/>
         <attr name="cv_colorAccent" format="dimension"/>
     </declare-styleable>
+
+    <!-- Настройки темы -->
+    <attr name="colorAccentedSurface" format="reference"/>
+    <attr name="colorDivider" format="reference"/>
+    <attr name="colorIcon" format="reference"/>
+    <attr name="titleChatTextColor" format="reference" />
+    <attr name="messageChatTextColor" format="reference" />
+    <attr name="counterBgColor" format="reference" />
+    <attr name="authorChatTextColor" format="reference"/>
+    <attr name="iconArchiveColor" format="reference"/>
+    <attr name="snackbarBgColor" format="reference"/>
+    <attr name="snackbarTextColor" format="reference"/>
+    <attr name="chipCloseColor" format="reference"/>
+    <attr name="chipBgColor" format="reference"/>
+    <attr name="itemListBgColor" format="reference"/>
+    <attr name="swipeItemListBgColor" format="reference"/>
+    
+
+
+
 </resources>

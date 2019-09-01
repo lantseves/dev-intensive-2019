@@ -32,7 +32,8 @@
             android:paddingRight="@dimen/font_normal_16"
             android:layout_marginTop="@dimen/spacing_small_8"
             android:layout_marginBottom="@dimen/spacing_small_8"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:background="@color/color_accent">
 
         </com.google.android.material.chip.ChipGroup>
 

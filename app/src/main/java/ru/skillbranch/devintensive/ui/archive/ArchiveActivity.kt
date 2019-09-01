@@ -3,6 +3,7 @@ package ru.skillbranch.devintensive.ui.archive
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_archive.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.extensions.setTextColor
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
 import ru.skillbranch.devintensive.ui.group.GroupActivity
@@ -56,6 +58,9 @@ class ArchiveActivity : AppCompatActivity() {
                     .setAction("Отмена") {
                         viewModel.addToArchive(chat.id)
                     }
+            val a = TypedValue()
+            theme.resolveAttribute(R.attr.snackbarTextColor, a, true)
+            snkBar.setTextColor(a.data)
             snkBar.view.background = resources.getDrawable(R.drawable.bg_snackbar , theme)
             snkBar.show()
         }
