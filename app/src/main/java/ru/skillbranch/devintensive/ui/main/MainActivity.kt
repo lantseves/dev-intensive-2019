@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //setTheme(R.style.AppTheme)
-        delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        //delegate.setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initToolbar()
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val divider = MyDividerItemDecorator(getDrawable(R.drawable.divider)!!)
+        val divider = MyDividerItemDecorator(resources.getDrawable(R.drawable.divider , theme))
 
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter) {chat ->
             viewModel.addToArchive(chat.id)

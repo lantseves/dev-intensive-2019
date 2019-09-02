@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.toolbar
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.UserItem
 import ru.skillbranch.devintensive.ui.adapters.UserAdapter
+import ru.skillbranch.devintensive.ui.custom.MyDividerItemDecorator
 import ru.skillbranch.devintensive.viewmodels.GroupViewModel
 
 class GroupActivity : AppCompatActivity() {
@@ -74,7 +75,7 @@ class GroupActivity : AppCompatActivity() {
 
     private fun initViews() {
         userAdapter = UserAdapter { viewModel.handleSelectedItem(it.id) }
-        val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        val divider = MyDividerItemDecorator(resources.getDrawable(R.drawable.divider , theme))
         with(rv_user_list) {
             adapter = userAdapter
             layoutManager = LinearLayoutManager(this@GroupActivity)

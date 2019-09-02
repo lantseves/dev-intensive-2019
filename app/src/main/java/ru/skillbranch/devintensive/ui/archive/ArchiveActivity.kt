@@ -20,6 +20,7 @@ import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.setTextColor
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
+import ru.skillbranch.devintensive.ui.custom.MyDividerItemDecorator
 import ru.skillbranch.devintensive.ui.group.GroupActivity
 import ru.skillbranch.devintensive.viewmodels.ArchiveViewModel
 import ru.skillbranch.devintensive.viewmodels.MainViewModel
@@ -51,7 +52,7 @@ class ArchiveActivity : AppCompatActivity() {
             Snackbar.make(rv_archive_list , "title ${it.title}" , Snackbar.LENGTH_LONG).show()
         }
 
-        val divider = DividerItemDecoration(this , DividerItemDecoration.VERTICAL)
+        val divider = MyDividerItemDecorator(resources.getDrawable(R.drawable.divider , theme))
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter , R.drawable.ic_unarchive_black_24dp) {chat ->
             viewModel.restoreFromArchive(chat.id)
             val snkBar =Snackbar.make(rv_archive_list , "Востановить чат с ${chat.title.trim()} из архива?" , Snackbar.LENGTH_LONG)

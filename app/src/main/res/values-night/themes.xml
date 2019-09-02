@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/color_accent_night</item>
         <item name="android:windowBackground">@color/color_black_snackBar</item>
 
-
         <item name="colorAccentedSurface">@color/color_divider_light</item>
         <item name="colorIcon">@android:color/white</item>
         <item name="colorDivider">@color/color_divider_dark</item>
