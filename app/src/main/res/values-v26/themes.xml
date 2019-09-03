@@ -3,6 +3,8 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowSplashscreenContent">@drawable/ic_splash</item>
+
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
@@ -12,14 +14,13 @@
         <item name="colorIcon">@color/color_gray</item>
         <item name="colorDivider">@color/color_divider_dark</item>
 
-        <item name="android:windowSplashscreenContent">@drawable/ic_splash</item>
         <item name="titleChatTextColor">@color/color_primary</item>
-        <item name="messageChatTextColor">@color/color_gray</item>
+        <item name="messageChatTextColor">@color/color_primary_dark_night</item>
         <item name="counterBgColor">@color/color_indicator</item>
         <item name="authorChatTextColor">@color/color_primary</item>
         <item name="iconArchiveColor">@color/color_primary_dark_night</item>
         <item name="snackbarBgColor">@color/color_primary</item>
-        <item name="snackbarTextColor">@color/color_black_snackBar</item>
+        <item name="snackbarTextColor">@android:color/white</item>
         <item name="chipCloseColor">@android:color/white</item>
         <item name="chipBgColor">@color/color_primary_light</item>
         <item name="itemListBgColor">@android:color/white</item>
@@ -27,6 +28,7 @@
 
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowAnimationStyle">@style/ActivityTransitions</item>
+
 
     </style>
 </resources>
